@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='main.css') }}">
       {% if title %}
-       <title> Pair Programmer Lounge - {{ title }} </title>
+       <title> Coder Lounge - {{ title }} </title>
+       <link rel="icon" type="image/x-icon" href="/static/img/project-logo.png">
 
       {% else %}
-        <title> Pair Programmer Lounge </title>
+        <title> Coder Lounge </title>
+        <link rel="icon" type="image/x-icon" href="/static/img/project-logo.png">
       {% endif %}
-
   </head>
 
   <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Pair Programmer Lounge</a>
+          <a class="navbar-brand" href="#">
+            <img src="/static/img/project-logo.png" width="30" height="30" alt="">
+          <a class="navbar-brand mr-4" href="/">Coder Lounge</a>
+
+          <link rclass="navbar-brand" href="/static/img/project-logo.png">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -36,7 +41,9 @@
 
               {% else %}
                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+                <a class="nav-item nav-link"  href="{{ url_for('register') }}">
+                  Register
+                </a>
               {% endif %}
               </div>
           </div>
@@ -81,3 +88,4 @@
   </body>
 
   </html>
+
