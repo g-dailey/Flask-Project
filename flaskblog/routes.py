@@ -10,6 +10,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
 
+
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -172,6 +174,8 @@ def send_reset_email(user):
   If you did not make this request then simply ignore this email and no changes will be made.
   '''
 
+  mail.send(msg)
+
 @app.route("/reset_password", methods=['GET', 'POST'])
 
 def reset_request():
@@ -180,7 +184,7 @@ def reset_request():
 
   form = RequestResetForm()
   if form.validate_on_submit():
-    user = user.query.filter_by(email=form.email.data).first()
+    user = User.query.filter_by(email=form.email.data).first()
     send_reset_email(user)
     flash('An email has been sent with instructions to reset your password.','info')
     return redirect(url_for('login'))
@@ -191,13 +195,13 @@ def reset_request():
 def reset_token(token):
   if current_user.is_authenticated:
     return redirect(url_for('home'))
-  user = User.verify_reset_token()
+  user = User.verify_reset_token(token)
   if user is None:
     flash('That is an invalid or expired token', 'warning')
     return redirect(url_for('reset_request'))
   form = ResetPasswordForm()
   if form.validate_on_submit():
-    hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+    hashed_password = bcrypt.generate_password_hash(form.password.data) #removed the decode from here
     user.password = hashed_password
     db.session.commit()
 
